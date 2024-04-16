@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="CheckersGame.Views.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CheckersGame.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Canvas Width="560" Height="560">
+        <Canvas.Background>
+            <ImageBrush ImageSource="\Assets\GameBoard.png"/>
+        </Canvas.Background>
+
+
+        <Button Content="RestartGame" Foreground="White" FontSize="22" Canvas.Top="-60"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Command="{Binding NewGameCommand}"
+                >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <ItemsControl  ItemsSource="{Binding GameBoard}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!-- Define here the appearance of each item -->
+                    <Grid Width="560" Height="560">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="{Binding SimpleModelChecker.Position.X}" Grid.Column="{Binding SimpleModelChecker.Position.Y}">
+                            <Button Width="70" Height="70" 
+                              Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Command="{Binding DataContext.GetPiecePressCommand, RelativeSource={RelativeSource AncestorType={x:Type local:GameView}}}"
+                              CommandParameter="{Binding}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse>
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding SimpleModelChecker.MyImage}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl  ItemsSource="{Binding MovesBoard}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!-- Define here the appearance of each item -->
+                    <Grid Width="560" Height="560">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="{Binding ChosenMove.X}" Grid.Column="{Binding ChosenMove.Y}">
+                            <Button Width="70" Height="70" 
+                      Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Command="{Binding DataContext.GetMovePressCommand, RelativeSource={RelativeSource AncestorType={x:Type local:GameView}}}"
+                                 CommandParameter="{Binding}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{Binding Color}" CornerRadius="8"></Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <Button Content="SaveGame" Foreground="White" FontSize="22" Canvas.Top="-60"
+                HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="453"
+                Command="{Binding SaveGameCommand}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+
+        <TextBox Foreground="White" 
+                 Background="Black" FontSize="22" Canvas.Left="198" Canvas.Top="-58"
+                 Width="180"
+                 Text="{Binding NameSave}"
+                 />
+
+
+    </Canvas>
+</UserControl>
