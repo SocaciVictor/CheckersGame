@@ -30,4 +30,8 @@
     <Resource Include="Assets\RedKing.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GameSaves\" />
+  </ItemGroup>
+
 </Project>

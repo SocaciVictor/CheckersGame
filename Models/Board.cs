@@ -19,7 +19,9 @@ namespace CheckersGame.Models
 
         [XmlArray]
         public List<List<PlayerColor>> ColorBoard { get; set; }
-        public Board()
+
+        public Board() { }
+        public Board(bool boolean)
         {
             PiecesBoard = new List<CheckerPiece>();
             ColorBoard = new List<List<PlayerColor>>();

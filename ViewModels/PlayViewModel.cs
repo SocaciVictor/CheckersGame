@@ -26,6 +26,8 @@ namespace CheckersGame.ViewModels
 
         public RelayCommand NavigateToGameCommand { get; set; }
 
+        public RelayCommand NavigateToStatisticsCommand { get; set; }
+
         private bool _forceJump = false;
         public bool ForceJump 
         {
@@ -41,6 +43,9 @@ namespace CheckersGame.ViewModels
         {
             Navigation = navigation;
             NavigateToMainMenuCommand = new RelayCommand(execute: o => { Navigation.NavigateTo<MainMenuViewModel>(); }, canExecute: o => true);
+            NavigateToStatisticsCommand = new RelayCommand(execute: o => { Navigation.NavigateTo<StatisticsViewModel>();
+                                                                           (Navigation.CurrentView as StatisticsViewModel).GetStatistics();}
+                                                                        , canExecute: o => true);
             NavigateToGameCommand = new RelayCommand(execute: o => { Navigation.NavigateTo<GameViewModel>();
                                                                     (Navigation.CurrentView as GameViewModel).InitGame(ForceJump);
                                                                     }, canExecute: o => true);

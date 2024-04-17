@@ -6,6 +6,26 @@
              xmlns:local="clr-namespace:CheckersGame.Views"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="EllipseButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse x:Name="ellipse" Fill="{TemplateBinding Background}" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ellipse" Property="Opacity" Value="0.8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Canvas Width="560" Height="560">
         <Canvas.Background>
             <ImageBrush ImageSource="\Assets\GameBoard.png"/>
@@ -124,7 +144,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
         <Button Content="SaveGame" Foreground="White" FontSize="22" Canvas.Top="-60"
                 HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="453"
                 Command="{Binding SaveGameCommand}">
@@ -140,9 +160,42 @@
         <TextBox Foreground="White" 
                  Background="Black" FontSize="22" Canvas.Left="198" Canvas.Top="-58"
                  Width="180"
-                 Text="{Binding NameSave}"
+                 Text="{Binding SaveNameGame}"
                  />
+        <Button Content="Back" Foreground="White" FontSize="22" Canvas.Top="577"
+            Command="{Binding BackToMainMenu}"
+                HorizontalAlignment="Center" VerticalAlignment="Top"
+                >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
+
+
+        <Button Width="43" Height="44"
+        Content=""
+        Style="{StaticResource EllipseButtonStyle}"
+        Opacity="{Binding ButtonGreyOpacity}"
+        Canvas.Left="576" Canvas.Top="253">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/GreyChecker.png" />
+            </Button.Background>
+        </Button>
+
+
+        <Button Width="43" Height="44"
+        Content=""
+        Style="{StaticResource EllipseButtonStyle}"
+        Opacity="{Binding ButtonRedOpacity}"
+         Canvas.Left="-58" Canvas.Top="253" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/RedChecker.png" />
+            </Button.Background>
+        </Button>
 
     </Canvas>
 </UserControl>

@@ -21,11 +21,13 @@ namespace CheckersGame.Models
     [Serializable]
     public class Position
     {
-        [XmlElement]
-        public int X { get; }
-        [XmlElement]
-        public int Y { get; }
+        [XmlAttribute]
+        public int X { get; set; }
 
+        [XmlAttribute]
+        public int Y { get; set; }
+
+        public Position() { }
         public Position(int x, int y)
         {
             X = x;
@@ -33,7 +35,7 @@ namespace CheckersGame.Models
         }
     }
 
-
+    [Serializable]
     public class CheckerPiece : ObservableObject
     {
         [XmlIgnore]
@@ -46,14 +48,14 @@ namespace CheckersGame.Models
             set
             {
                 _position = value;
-                OnPropertyChanged(nameof(Position));
+                OnPropertyChanged();
             }
         }
 
         [XmlIgnore]
         private bool _isKing;
 
-        [XmlElement]
+        [XmlAttribute]
         public bool IsKing 
         {
             get { return  (_isKing); }
@@ -78,7 +80,7 @@ namespace CheckersGame.Models
         [XmlIgnore]
         private string _myImage;
 
-        [XmlElement]
+        [XmlAttribute]
         public string MyImage
         {
             get { return _myImage; }
@@ -89,6 +91,7 @@ namespace CheckersGame.Models
             }
         }
 
+        public CheckerPiece() { }
         public CheckerPiece(PlayerColor playerColor, Position pos)
         {
             _position = pos;

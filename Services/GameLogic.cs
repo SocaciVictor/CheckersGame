@@ -4,16 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Xml.Serialization;
 
 namespace CheckersGame.Services
 {
+    [Serializable]
     public class Player
     {
+        [XmlElement]
         public PlayerColor Color { get; set; }
+        [XmlElement]
         public int CheckerPieceCount { get; set; }
 
+        public Player() { } 
         public Player(PlayerColor color)
         {
             Color = color;
@@ -21,22 +27,29 @@ namespace CheckersGame.Services
         }
 
     }
+
+    [Serializable]
     public class GameLogic
     {
+        [XmlAttribute]
         public bool _forceJump;
 
+        [XmlElement]
         public Player _playerRed { get; set; }
 
+        [XmlElement]
         public Player _playerGrey { get; set; }
 
+        [XmlElement]
         public Player _currentPlayer { get; set; }
 
-        public Board Board { get; set; }       
+        [XmlElement]
+        public Board Board { get; set; }
 
-
+        public GameLogic() { }
         public GameLogic(bool ForceJump)
         {
-            Board = new Board();
+            Board = new Board(true);
             _playerRed = new Player(PlayerColor.Red);
             _playerGrey = new Player(PlayerColor.Grey);
             _currentPlayer = _playerRed;
@@ -118,13 +131,13 @@ namespace CheckersGame.Services
             }
 
 
-            Queue<Position> moves = new Queue<Position>();
+            List<Position> moves = new List<Position>();
             List<CheckerPiece> eatenPieces = new List<CheckerPiece>();
             bool[,] boolEatenMatrix = new bool[8, 8];
-            moves.Enqueue(currentCheckerPiece.Position);
+            moves.Add(currentCheckerPiece.Position);
             while (moves.Count > 0) 
             {
-                Position currentPos = moves.Dequeue();
+                Position currentPos = moves[0];
                 for (int i = 0; i < possibleMoves; i++)
                 {
                     Position newPos = new Position(currentPos.X + dx[i] * directionMove * 2, currentPos.Y + dy[i] * 2);
@@ -143,9 +156,21 @@ namespace CheckersGame.Services
 
                     if (_forceJump)
                     {
-                        moves.Enqueue(newPos);
+                        moves.Insert(0,newPos);
                         break;
                     }
+                    else
+                    {
+                        eatenPieces.RemoveAt(eatenPieces.Count - 1);
+                    }
+                }
+                if (currentPos == moves[0])
+                {
+                    if (eatenPieces.Count > 0)
+                    {
+                        eatenPieces.RemoveAt(eatenPieces.Count - 1);
+                    }
+                    moves.RemoveAt(0);
                 }
             }
             return _newMoves;

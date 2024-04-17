@@ -28,6 +28,7 @@
         <CheckBox x:Name="ForceJumpChecked" IsChecked="{Binding ForceJump}" Height="15" Width="16" Canvas.Left="376" Canvas.Top="320" HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
 
         <Button x:Name="StatisticsButton" Content="Statistics" Background="{x:Null}" 
+                Command="{Binding NavigateToStatisticsCommand}"
       Canvas.Left="209" Canvas.Top="353" 
       Foreground="White" FontSize="36" RenderTransformOrigin="0.772,0.209" HorizontalAlignment="Center" VerticalAlignment="Top" ></Button>
 

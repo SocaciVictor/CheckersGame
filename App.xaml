@@ -25,5 +25,9 @@
             <view:GameView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:StatisticsViewModel}">
+            <view:Statistics/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

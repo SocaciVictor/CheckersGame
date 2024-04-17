@@ -22,7 +22,7 @@
                 Foreground="White" FontSize="36" ></Button>
 
         <Button x:Name="LoadGame" Content="LoadGame" Background="{x:Null}" 
-                Command="{Binding NavigateToLoadGameCommand}"
+                Command="{Binding LoadGameNavToCommand}"
          Canvas.Left="193" Canvas.Top="296" 
          Foreground="White" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center" ></Button>
 

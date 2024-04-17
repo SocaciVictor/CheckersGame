@@ -26,6 +26,7 @@ namespace CheckersGame
             services.AddSingleton<MainMenuViewModel>();
             services.AddSingleton<LoadGameViewModel>();
             services.AddSingleton<AboutViewModel>();
+            services.AddSingleton<StatisticsViewModel>();
             services.AddSingleton<PlayViewModel>();
             services.AddSingleton<GameViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
